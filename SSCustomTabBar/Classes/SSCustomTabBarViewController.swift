@@ -19,6 +19,18 @@ public struct AnimationConfiguration {
     public let springDampingRatio: CGFloat
     public let initialSpringVelocity: CGFloat
     
+    public init(
+        duration: TimeInterval,
+        delay: TimeInterval,
+        springDampingRatio: CGFloat,
+        initialSpringVelocity: CGFloat
+    ) {
+        self.duration = duration
+        self.delay = delay
+        self.springDampingRatio = springDampingRatio
+        self.initialSpringVelocity = initialSpringVelocity
+    }
+    
 }
 
 public class SSCustomTabBarViewController: UITabBarController {
