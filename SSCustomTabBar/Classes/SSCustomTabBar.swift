@@ -14,10 +14,11 @@ public class SSCustomTabBar: UITabBar {
     /// Fill color of back wave layer
     @IBInspectable var layerFillColor: UIColor {
         get {
-            return UIColor(cgColor: kLayerFillColor)
-        }
-        set{
-            kLayerFillColor = newValue.cgColor
+            return kLayerFillColor
+        } set {
+            kLayerFillColor = newValue
+            // Обновляем цвет заливки при установке свойства
+            tabBarShapeLayer.fillColor = kLayerFillColor.cgColor
         }
     }
     
@@ -72,7 +73,7 @@ public class SSCustomTabBar: UITabBar {
         }
     }
     
-    private var kLayerFillColor: CGColor = UIColor.blue.cgColor
+    private var kLayerFillColor: UIColor = UIColor.blue
     private var displayLink: CADisplayLink!
     private let tabBarShapeLayer = CAShapeLayer()
     internal var minimalHeight: CGFloat = 30
@@ -184,7 +185,6 @@ extension SSCustomTabBar {
         
         tabBarShapeLayer.frame = CGRect(x: 0.0, y: 0, width: self.bounds.width, height: self.bounds.height)
         tabBarShapeLayer.actions = ["position" : NSNull(), "bounds" : NSNull(), "path" : NSNull()]
-        tabBarShapeLayer.fillColor = kLayerFillColor
         self.layer.insertSublayer(tabBarShapeLayer, at: 0)
         
         let width = UIScreen.main.bounds.width/CGFloat(self.items?.count ?? 0)
@@ -259,4 +259,18 @@ extension SSCustomTabBar {
         bezierPath.close()
         return bezierPath.cgPath
     }
+}
+
+extension SSCustomTabBar {
+    
+    override public func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 13.0, *) {
+            if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                // Обновляем цвет заливки
+                tabBarShapeLayer.fillColor = kLayerFillColor.cgColor
+            }
+        }
+    }
+    
 }
