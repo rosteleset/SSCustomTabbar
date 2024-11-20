@@ -47,9 +47,11 @@ public class SSCustomTabBar: UITabBar {
     /// Shadow Color
     @IBInspectable var shadowColor: UIColor {
         get {
-            return UIColor(cgColor: self.layer.shadowColor ?? UIColor.clear.cgColor)
+            return kShadowColor
         }
-        set{
+        set {
+            self.kShadowColor = newValue
+            // Обновля цвет обовдки при установке свойства
             self.layer.shadowColor = newValue.cgColor
         }
     }
@@ -74,6 +76,7 @@ public class SSCustomTabBar: UITabBar {
     }
     
     private var kLayerFillColor: UIColor = UIColor.blue
+    private var kShadowColor: UIColr = UIColor.blue
     private var displayLink: CADisplayLink!
     private let tabBarShapeLayer = CAShapeLayer()
     internal var minimalHeight: CGFloat = 30
@@ -269,6 +272,7 @@ extension SSCustomTabBar {
             if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
                 // Обновляем цвет заливки
                 tabBarShapeLayer.fillColor = kLayerFillColor.cgColor
+                layer.shadowColor = kShadowColor.cgColor
             }
         }
     }
