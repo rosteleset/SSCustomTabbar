@@ -76,7 +76,7 @@ public class SSCustomTabBar: UITabBar {
     }
     
     private var kLayerFillColor: UIColor = UIColor.blue
-    private var kShadowColor: UIColr = UIColor.blue
+    private var kShadowColor: UIColor = UIColor.blue
     private var displayLink: CADisplayLink!
     private let tabBarShapeLayer = CAShapeLayer()
     internal var minimalHeight: CGFloat = 30
